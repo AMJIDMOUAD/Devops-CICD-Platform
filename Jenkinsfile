@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/AMJIDMOUAD/Devops-CICD-Platform.git'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
