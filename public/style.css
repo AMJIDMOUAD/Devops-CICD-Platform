@@ -1,0 +1,128 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #0a192f;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Animated gradient background */
+.bg {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 20%, #97e7d5, transparent),
+              radial-gradient(circle at 80% 80%, #0077ff, transparent);
+  z-index: -1;
+  filter: blur(120px);
+}
+
+/* NAV */
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 50px;
+}
+
+.cta {
+  color: #00ffc3;
+  text-decoration: none;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  padding: 120px 20px;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  background: linear-gradient(90deg, #00ffc3, #00aaff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero-buttons {
+  margin-top: 30px;
+}
+
+/* BUTTONS */
+.btn {
+  padding: 12px 25px;
+  border-radius: 10px;
+  text-decoration: none;
+  margin: 5px;
+  transition: 0.3s;
+}
+
+.primary {
+  background: #00ffc3;
+  color: black;
+}
+
+.outline {
+  border: 1px solid #00ffc3;
+  color: #00ffc3;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+/* SKILLS */
+.skills {
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+  gap: 15px;
+}
+
+.skills-grid div {
+  padding: 15px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+}
+
+/* PROJECTS */
+#projects {
+  padding: 80px 40px;
+}
+
+.project {
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.project:hover {
+  transform: scale(1.02);
+}
+
+/* FIVERR */
+.fiverr {
+  padding: 100px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.glass {
+  background: rgba(255,255,255,0.08);
+  padding: 40px;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  text-align: center;
+  max-width: 600px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+}
