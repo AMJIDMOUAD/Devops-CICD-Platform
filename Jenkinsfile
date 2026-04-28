@@ -11,11 +11,7 @@ pipeline {
             }
         }
 
-        stage('Start npm') {
-            steps {
-                sh 'npm start'
-            }
-        }
+       
 
         stage('Build Docker Image') {
             steps {
