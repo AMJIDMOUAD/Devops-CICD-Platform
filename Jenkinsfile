@@ -1,7 +1,12 @@
 pipeline {
     agent any
 
-
+stage('Test Docker') {
+    steps {
+        sh 'docker --version'
+        sh 'docker ps'
+    }
+}
     stages {
 
         stage('Install Dependencies') {
