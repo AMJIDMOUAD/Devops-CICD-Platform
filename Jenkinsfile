@@ -17,7 +17,7 @@ pipeline {
         stage('Dependency Check') {
             steps {
                 dependencyCheck additionalArguments: '--scan ./',
-                                odcInstallation: 'DependencyCheck'
+                                odcInstallation: 'dp'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
