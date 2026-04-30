@@ -4,10 +4,8 @@ pipeline {
   environment {
             SONAR_TOKEN = credentials('sonar-token')
         }
-        
-    stages {
 
-       
+    stages {
       
         stage('Install Dependencies') {
             steps {
@@ -16,12 +14,6 @@ pipeline {
         }
 
         stage('Run Tests') {
-            steps {
-                sh 'npm test'
-            }
-        }
-
-         stage('Run Tests') {
             steps {
                 sh 'npm test'
             }
