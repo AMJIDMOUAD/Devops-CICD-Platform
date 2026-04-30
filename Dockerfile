@@ -1,5 +1,5 @@
 # Use official Node image
-FROM node:lts
+FROM node
 
 # Create app directory
 WORKDIR /app
