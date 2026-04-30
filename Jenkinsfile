@@ -4,7 +4,9 @@ pipeline {
     stages {
 
        
-
+        environment {
+            SONAR_TOKEN = credentials('sonar-token')
+        }
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
@@ -17,16 +19,42 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+         stage('Run Tests') {
             steps {
-                sh 'docker build -t myapp .'
+                sh 'npm test'
             }
         }
 
-        stage('Run Container') {
+        stage('Dependency Check') {
             steps {
-                sh 'docker rm -f myapp-container || true'
-                sh 'docker run -d -p 3000:3000 --name myapp-container myapp'
+                dependencyCheck additionalArguments: '--scan ./',
+                                odcInstallation: 'DependencyCheck'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh '''
+                    npx sonar-scanner \
+                    -Dsonar.projectKey=myapp \
+                    -Dsonar.sources=. \
+                    -Dsonar.login=$SONAR_TOKEN
+                    '''
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t amjidcloud/myapp:latest .'
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                sh 'docker push yourdockerhub/myapp:latest'
             }
         }
     }
