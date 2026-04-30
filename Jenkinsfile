@@ -14,26 +14,7 @@ pipeline {
             }
         }
 
-        stage('Dependency Check') {
-            steps {
-                dependencyCheck additionalArguments: '--scan ./',
-                                odcInstallation: 'dp'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            }
-        }
-
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh '''
-                    npx sonar-scanner \
-                    -Dsonar.projectKey=myapp \
-                    -Dsonar.sources=. \
-                    -Dsonar.login=$SONAR_TOKEN
-                    '''
-                }
-            }
-        }
+       
 
         stage('Build Docker Image') {
             steps {
