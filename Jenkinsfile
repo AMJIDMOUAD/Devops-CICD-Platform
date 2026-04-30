@@ -5,10 +5,7 @@ pipeline {
         SONAR_TOKEN = credentials('sonar-token')
     }
 
-    tools {
-        dp 'DependencyCheck'
-    }
-
+ 
     stages {
       
         stage('Install Dependencies') {
