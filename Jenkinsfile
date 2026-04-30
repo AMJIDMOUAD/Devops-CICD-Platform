@@ -6,6 +6,9 @@ agent any
   environment {
             SONAR_TOKEN = credentials('sonar-token')
         }
+        tools {
+            DependencyCheck 'DependencyCheck'
+        }
 
     stages {
       
@@ -15,12 +18,7 @@ agent any
             }
         }
 
-        stage('Dependency Check') {
-    steps {
-        dependencyCheck additionalArguments: '--scan ./',
-                        odcInstallation: 'DependencyCheck'
-        dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-    }
+   
 }
 
       
@@ -37,6 +35,13 @@ agent any
                 }
             }
         }
+
+     stage('Dependency Check') {
+            steps {
+                dependencyCheck additionalArguments: '--scan ./',
+                                odcInstallation: 'DependencyCheck'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
 
         stage('Build Docker Image') {
             steps {
