@@ -1,15 +1,13 @@
 pipeline {
+    agent any
 
+    environment {
+        SONAR_TOKEN = credentials('sonar-token')
+    }
 
-agent any
-
-  environment {
-            SONAR_TOKEN = credentials('sonar-token')
-        }
-
-        tools {
-            dp 'DependencyCheck'
-        }
+    tools {
+        dp 'DependencyCheck'
+    }
 
     stages {
       
@@ -19,7 +17,13 @@ agent any
             }
         }
 
-    
+        stage('Dependency Check') {
+            steps {
+                dependencyCheck additionalArguments: '--scan ./',
+                                odcInstallation: 'DependencyCheck'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
 
         stage('SonarQube Analysis') {
             steps {
@@ -34,40 +38,24 @@ agent any
             }
         }
 
-     stage('Dependency Check') {
-            steps {
-                dependencyCheck additionalArguments: '--scan ./',
-                                odcInstallation: 'DependencyCheck'
-                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-            }
-
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t amjidcloud/myapp:latest .'
             }
         }
 
-       
         stage('Push Docker Image') {
             steps {
-
-            withCredentials([usernamePassword(
-            credentialsId: 'docker-cred',
-            usernameVariable: 'DOCKER_USER',
-            passwordVariable: 'DOCKER_PASS'
-        )]) {
-                sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-                
-
-                sh 'docker tag myapp $DOCKER_USER/myapp:latest'
-
-                
-                sh 'docker push amjidcloud/myapp:latest'
+                withCredentials([usernamePassword(
+                    credentialsId: 'docker-cred',
+                    usernameVariable: 'DOCKER_USER',
+                    passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+                    sh 'docker tag myapp $DOCKER_USER/myapp:latest'
+                    sh 'docker push amjidcloud/myapp:latest'
+                }
             }
         }
     }
-}
-
-      
-}
 }
