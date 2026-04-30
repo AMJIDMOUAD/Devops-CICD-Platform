@@ -38,7 +38,7 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                sh 'docker push yourdockerhub/myapp:latest'
+                sh 'docker push amjidcloud/myapp:latest'
             }
         }
     }
