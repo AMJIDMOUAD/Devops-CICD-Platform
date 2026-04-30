@@ -6,8 +6,9 @@ agent any
   environment {
             SONAR_TOKEN = credentials('sonar-token')
         }
+
         tools {
-            DependencyCheck 'DependencyCheck'
+            dp 'DependencyCheck'
         }
 
     stages {
