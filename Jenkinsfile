@@ -19,10 +19,7 @@ agent any
             }
         }
 
-   
-}
-
-      
+    
 
         stage('SonarQube Analysis') {
             steps {
@@ -69,5 +66,8 @@ agent any
             }
         }
     }
+}
+
+      
 }
 }
