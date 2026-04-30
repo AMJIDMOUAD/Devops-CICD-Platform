@@ -1,12 +1,14 @@
 pipeline {
     agent any
 
+  environment {
+            SONAR_TOKEN = credentials('sonar-token')
+        }
+        
     stages {
 
        
-        environment {
-            SONAR_TOKEN = credentials('sonar-token')
-        }
+      
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
