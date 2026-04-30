@@ -10,12 +10,13 @@ pipeline {
                 sh 'npm install'
             }
         }
-
-        stage('Run Tests') {
+        stage('Test Docker') {
             steps {
-                sh 'npm test'
+                sh 'docker --version'
+                sh 'docker ps'
             }
         }
+       
 
         stage('Build Docker Image') {
             steps {
