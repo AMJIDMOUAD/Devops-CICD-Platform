@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+
+
+agent any
 
   environment {
             SONAR_TOKEN = credentials('sonar-token')
@@ -13,14 +15,14 @@ pipeline {
             }
         }
 
-    
-        stage('Dependency Check OWASP') {
+        stage('Dependency Check') {
     steps {
         dependencyCheck additionalArguments: '--scan ./',
                         odcInstallation: 'DependencyCheck'
         dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
     }
 }
+
       
 
         stage('SonarQube Analysis') {
@@ -61,4 +63,5 @@ pipeline {
             }
         }
     }
+}
 }
